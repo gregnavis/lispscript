@@ -96,5 +96,38 @@ Reader.prototype.read = function () {
   this.consumeWhitespace()
 }
 
+function Environment(parentEnvironment) {
+  this.parentEnvironment = parentEnvironment
+  this.variables = {}
+}
+
+Environment.prototype.set = function (symbol, value) {
+  this.variables[symbol.name] = value
+}
+
+Environment.prototype.get = function (symbol) {
+  var name = symbol.name
+
+  if (name in this.variables) {
+    return this.variables[name]
+  }
+
+  if (undefined === this.parentEnvironment) {
+    throw UndefinedVariable(name)
+  }
+
+  return this.parentEnvironment.get(symbol)
+}
+
+function UndefinedVariable(name) {
+  this.name = name
+}
+
+UndefinedVariable.prototype.toString = function () {
+  return "the variable '" + this.name + "' is undefined"
+}
+
 exports.Symbol = Symbol
 exports.Reader = Reader
+exports.Environment = Environment
+exports.UndefinedVariable = UndefinedVariable
