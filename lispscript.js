@@ -3,6 +3,7 @@
 
   // The LispScript namespace.
   var lispscript = {};
+  window.lispscript = lispscript;
 
   // Contexts
   // ========
@@ -53,12 +54,12 @@
   }
 
   // A number reader.
-  var readNumber = makeReader('\\d+', function (string) {
-    return parseInt(string, 10);
+  var readNumber = makeReader('[-+]?\\d+(?:\\.\\d+)?', function (string) {
+    return parseFloat(string, 10);
   });
 
   // A symbol reader.
-  var readSymbol = makeReader('[\\w+*]+', function (string) {
+  var readSymbol = makeReader('[\\w]+', function (string) {
     return string;
   });
 
@@ -78,7 +79,7 @@
 
     // Process elements until the closing `)` is found.
     while (string[0] !== ')') {
-      result = _read(string);
+      var result = _read(string);
       list.push(result[0]);
       string = result[1];
     }
@@ -153,6 +154,12 @@
 
         return makeProcedure(args, body, context);
 
+      case 'quote':
+        if (value.length != 2) {
+          throw 'quote takes exactly one argument';
+        }
+        return value[1];
+
       default:
         var values = value.map(function (subvalue) {
           return _eval(subvalue, context);
@@ -224,7 +231,13 @@
     '/': div
   });
 
+  // Return the result of evaluation in the root context.
+  function rootEval(value) {
+    return _eval(value, rootContext);
+  }
+
   lispscript.rootContext = rootContext;
+  lispscript.rootEval = rootEval;
 
   // Helpers
   // =======
