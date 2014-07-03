@@ -1,3 +1,12 @@
+body, input {
+  font-family: monospace;
+}
+
+code {
+  background: #e8e8e8;
+  color: #404040;
+}
+
 .number {
   color: #f00;
 }
@@ -8,4 +17,19 @@
 
 .paren {
   color: #00f;
+}
+
+.function {
+  color: #e8e8e8;
+}
+
+.error {
+  color: #f00;
+}
+
+input {
+  border: solid 1px #e8e8e8;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>LispScript Read-Eval-Print Loop</title>
+    <link href="repl.css" rel="stylesheet" type="text/css">
+    <script src="lispscript.js"></script>
+    <script src="repl.js"></script>
+  </head>
+  <body>
+    <h1>LispScript Read-Eval-Print Loop</h1>
+
+    <p>This is a toy implementation of Lisp (or Lisp-like) language in JavaScript.
+    The following constructrs are currently supported:</p>
+
+    <ul>
+      <li>numbers, symbols and lists</li>
+      <li>anonymous procedures, e.g. <code>(lambda (x y) (+ x y))</code></li>
+      <li>variable assignment, including assigning lambdas to symbols, e.g. <code>(define variable 1)</code></li>
+      <li>procedure calls, e.g. <code>(procedure arg1 arg2)</code></li>
+      <li>procedures as return values</li>
+    </ul>
+
+    <p>You can also take a look at <a href="docs/lispscript.js.html">the annotated source code</a>.</p>
+
+    <ol id="repl">
+      <li><input id="input" autocomplete="off"></li>
+    </ol>
+  </body>
+</html>
