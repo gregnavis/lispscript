@@ -59,7 +59,7 @@
   });
 
   // A symbol reader.
-  var readSymbol = makeReader('[\\w]+', function (string) {
+  var readSymbol = makeReader('[\\w?!+/*-]+', function (string) {
     return string;
   });
 
@@ -112,7 +112,7 @@
 
     // Raise an exception if there were mutliple objects to read from `string`.
     if (result[1].length > 0) {
-      throw 'Cannot read multiple unexpected values';
+      throw "Unexpected trailing '" + result[1] + "'";
     }
 
     return result[0];
@@ -264,7 +264,7 @@
   // Return a regular expression match at the beginning of the string or
   // `undefined` if no match is found.
   function matchStart(regexp, string) {
-    var regexpObject = new RegExp('^' + regexp + '\\b');
+    var regexpObject = new RegExp('^' + regexp);
     var match = regexpObject.exec(string);
     if (match !== null) {
       return match[0];
